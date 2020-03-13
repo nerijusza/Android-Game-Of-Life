@@ -6,6 +6,9 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import nerijus.life.domain.Board;
+import nerijus.life.view.GameView;
+
 public class GameActivity extends AppCompatActivity {
 
 	@Override
@@ -24,15 +27,13 @@ public class GameActivity extends AppCompatActivity {
 		);
 
 		configureBackButton();
+
+		GameView gameView = (GameView) findViewById(R.id.gameView);
+		gameView.setGameStatus(new Board(70, 120).getStatus());
 	}
 
 	private void configureBackButton() {
 		Button enterActionButton = findViewById(R.id.backButton);
-		enterActionButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				finish();
-			}
-		});
+		enterActionButton.setOnClickListener(v -> finish());
 	}
 }

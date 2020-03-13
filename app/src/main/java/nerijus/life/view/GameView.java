@@ -10,7 +10,11 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
+import nerijus.life.domain.GameStatus;
+
 public class GameView extends View {
+	private GameStatus gameStatus;
+
 	public GameView(Context context) {
 		super(context);
 
@@ -39,15 +43,31 @@ public class GameView extends View {
 
 	}
 
+	public void setGameStatus(GameStatus gameStatus) {
+		this.gameStatus = gameStatus;
+	}
+
 	@Override
 	protected void onDraw(Canvas canvas) {
-		canvas.drawColor(Color.RED);
+		canvas.drawColor(Color.GRAY);
 
-		Rect rect = new Rect(200, 200, 300, 300);
+		Paint paintGreen = new Paint();
+		paintGreen.setColor(Color.GREEN);
 
-		Paint paint = new Paint();
-		paint.setColor(Color.GREEN);
+		Paint paintRed = new Paint();
+		paintGreen.setColor(Color.RED);
 
-		canvas.drawRect(rect, paint);
+		Rect rect;
+		int size = 10;
+
+		for (GameStatus.Cell cell: gameStatus.getCells()) {
+			rect = new Rect(cell.getX() * size, cell.getY() * size, cell.getX() * size + size, cell.getY() * size + size);
+
+			if (cell.isActive()) {
+				canvas.drawRect(rect, paintGreen);
+			} else {
+				canvas.drawRect(rect, paintRed);
+			}
+		}
 	}
 }
