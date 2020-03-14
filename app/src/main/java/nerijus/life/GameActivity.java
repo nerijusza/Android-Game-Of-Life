@@ -19,7 +19,7 @@ public class GameActivity extends AppCompatActivity {
 	private Board board;
 	private Handler handler = new Handler();
 	private Runnable runnable;
-	private boolean running = false;
+	private boolean running;
 	private DisplayOptions displayOptions;
 
 	@Override
@@ -43,6 +43,7 @@ public class GameActivity extends AppCompatActivity {
 	}
 
 	private void init() {
+		running = false;
 		displayOptions = MainActivity.displayOptions;
 
 		DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -60,6 +61,9 @@ public class GameActivity extends AppCompatActivity {
 		gameView.invalidate();
 		gameView.setGameStatus(board.getGameStatus());
 
+		TextView textView = findViewById(R.id.iterationText);
+		textView.setText(String.valueOf(board.getGameStatus().getIteration()));
+
 		runnable = new Runnable() {
 			@Override
 			public void run() {
@@ -69,6 +73,7 @@ public class GameActivity extends AppCompatActivity {
 		};
 
 		configureStartStop();
+		configureRestartButton();
 	}
 
 	private void iteration() {
@@ -97,6 +102,14 @@ public class GameActivity extends AppCompatActivity {
 		findViewById(R.id.iterationSpeedIncrease).setOnClickListener(v -> {
 			displayOptions.increaseIterationTime();
 			updateIterationTimeLabel();
+		});
+	}
+
+	private void configureRestartButton() {
+		findViewById(R.id.restartButton).setOnClickListener(v -> {
+			handler.removeCallbacks(runnable);
+			init();
+			onResume();
 		});
 	}
 
