@@ -20,6 +20,7 @@ public class GameActivity extends AppCompatActivity {
 	private Handler handler = new Handler();
 	private Runnable runnable;
 	private boolean running = false;
+	private DisplayOptions displayOptions;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,15 +39,16 @@ public class GameActivity extends AppCompatActivity {
 
 		init();
 		configureBackButton();
+		configureIterationSpeedChangeClicks();
 	}
 
 	private void init() {
+		displayOptions = MainActivity.displayOptions;
+
 		DisplayMetrics displayMetrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 		int width = displayMetrics.widthPixels;
 		int height = displayMetrics.heightPixels - 172;
-
-		DisplayOptions displayOptions = MainActivity.displayOptions;
 
 		board = new Board(
 			width / displayOptions.getCellSize(),
@@ -87,6 +89,17 @@ public class GameActivity extends AppCompatActivity {
 		enterActionButton.setOnClickListener(v -> finish());
 	}
 
+	private void configureIterationSpeedChangeClicks() {
+		findViewById(R.id.iterationSpeedDecrease).setOnClickListener(v -> {
+			displayOptions.decreaseIterationTime();
+			updateIterationTimeLabel();
+		});
+		findViewById(R.id.iterationSpeedIncrease).setOnClickListener(v -> {
+			displayOptions.increaseIterationTime();
+			updateIterationTimeLabel();
+		});
+	}
+
 	private void configureStartStop() {
 		findViewById(R.id.gameView).setOnClickListener(v -> {
 			if (running) {
@@ -102,6 +115,7 @@ public class GameActivity extends AppCompatActivity {
 
 	@Override
 	protected void onResume() {
+		updateIterationTimeLabel();
 		if (running) {
 			runnable.run();
 		} else {
@@ -114,5 +128,10 @@ public class GameActivity extends AppCompatActivity {
 	protected void onDestroy() {
 		super.onDestroy();
 		handler.removeCallbacks(runnable);
+	}
+
+	private void updateIterationTimeLabel() {
+		TextView text = findViewById(R.id.iterationTimeLabel);
+		text.setText(String.valueOf(displayOptions.getIterationTimeInMillis()));
 	}
 }

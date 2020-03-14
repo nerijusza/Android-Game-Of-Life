@@ -32,10 +32,15 @@ public class MainActivity extends AppCompatActivity {
 		});
 	}
 
-	private void configureCellSizeChanges() {
+	@Override
+	protected void onStart() {
 		updateCellSizeLabel();
 		updateIterationTimeLabel();
 
+		super.onStart();
+	}
+
+	private void configureCellSizeChanges() {
 		findViewById(R.id.cellSizeDecrease).setOnClickListener(v -> {
 			displayOptions.decreaseCellSize();
 			updateCellSizeLabel();
