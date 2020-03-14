@@ -15,10 +15,9 @@ import nerijus.life.view.DisplayOptions;
 import nerijus.life.view.GameView;
 
 public class GameActivity extends AppCompatActivity {
-
-	private DisplayOptions displayOptions;
-	private Handler handler = new Handler();
 	private Board board;
+	private Handler handler = new Handler();
+	private Runnable runnable;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +45,7 @@ public class GameActivity extends AppCompatActivity {
 		int width = displayMetrics.widthPixels;
 		int height = displayMetrics.heightPixels - 172;
 
-		displayOptions = new DisplayOptions();
-		displayOptions.setCellSize(50);
+		DisplayOptions displayOptions = MainActivity.displayOptions;
 
 		board = new Board(
 			width / displayOptions.getCellSize(),
@@ -58,6 +56,15 @@ public class GameActivity extends AppCompatActivity {
 
 		gameView.invalidate();
 		gameView.setGameStatus(board.getGameStatus());
+
+		runnable = new Runnable() {
+			@Override
+			public void run() {
+				System.out.println(">>>>> 555");
+				iteration();
+				handler.postDelayed(this, displayOptions.getSpeedInMillis());
+			}
+		};
 	}
 
 	private void iteration() {
@@ -73,34 +80,20 @@ public class GameActivity extends AppCompatActivity {
 		gameView.setGameStatus(gameStatus);
 	}
 
+	private void configureBackButton() {
+		Button enterActionButton = findViewById(R.id.backButton);
+		enterActionButton.setOnClickListener(v -> finish());
+	}
+
 	@Override
 	protected void onResume() {
 		super.onResume();
-
-		Runnable aa = new Runnable() {
-			@Override
-			public void run() {
-				System.out.println(">>>>> 555");
-				iteration();
-				handler.postDelayed(this, 100);
-			}
-		};
-
-		handler.postDelayed(aa, 300);
+		runnable.run();
 	}
 
-	private void configureBackButton() {
-		Button enterActionButton = findViewById(R.id.backButton);
-		enterActionButton.setOnClickListener(v -> {
-
-			GameView gameView = findViewById(R.id.gameView);
-
-			System.out.println("5 >>> " + gameView.getLayoutParams().width);
-			System.out.println("5 >>> " + gameView.getLayoutParams().height);
-			System.out.println("5 >>> " + gameView.getHeight());
-			System.out.println("5 >>> " + gameView.getWidth());
-
-			finish();
-		});
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		handler.removeCallbacks(runnable);
 	}
 }
