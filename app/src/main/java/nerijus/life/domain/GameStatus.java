@@ -1,20 +1,36 @@
 package nerijus.life.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import lombok.Value;
-
-@Value
 public class GameStatus {
-	int sizeX;
-	int sizeY;
-	List<Cell> cells;
-	int iteration;
+	private List<GameState> lastStates = new ArrayList<>();
+	private int iteration = 0;
+	private boolean finished = false;
 
-	@Value
-	public static class Cell {
-		int x;
-		int y;
-		boolean active;
+	void addGameState(GameState gameState) {
+		if (!finished) {
+			if (lastStates.contains(gameState)) {
+				finished = true;
+			} else {
+				iteration++;
+			}
+		}
+
+		if (lastStates.size() > 2) lastStates.set(2, lastStates.get(1));
+		if (lastStates.size() > 1) lastStates.set(1, lastStates.get(0));
+		lastStates.add(0, gameState);
+	}
+
+	public int getIteration() {
+		return iteration;
+	}
+
+	public boolean isFinished() {
+		return finished;
+	}
+
+	public GameState getGameState() {
+		return lastStates.get(0);
 	}
 }

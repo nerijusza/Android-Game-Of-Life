@@ -10,6 +10,7 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
+import nerijus.life.domain.GameState;
 import nerijus.life.domain.GameStatus;
 
 public class GameView extends View {
@@ -58,7 +59,7 @@ public class GameView extends View {
 	protected void onDraw(Canvas canvas) {
 		int size = displayOptions.getCellSize();
 
-		for (GameStatus.Cell cell: gameStatus.getCells()) {
+		for (GameState.Cell cell: gameStatus.getGameState().getCells()) {
 			rect.left = cell.getX() * size;
 			rect.top = cell.getY() * size;
 			rect.right = cell.getX() * size + size;

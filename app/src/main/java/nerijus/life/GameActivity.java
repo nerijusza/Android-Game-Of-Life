@@ -57,14 +57,14 @@ public class GameActivity extends AppCompatActivity {
 		gameView.setDisplayOptions(displayOptions);
 
 		gameView.invalidate();
-		gameView.setGameStatus(board.getStatus());
+		gameView.setGameStatus(board.getGameStatus());
 	}
 
 	private void iteration() {
 		GameView gameView = findViewById(R.id.gameView);
 
 		board.makeIteration();
-		GameStatus gameStatus = board.getStatus();
+		GameStatus gameStatus = board.getGameStatus();
 
 		TextView textView = findViewById(R.id.iterationText);
 		textView.setText(String.valueOf(gameStatus.getIteration()));

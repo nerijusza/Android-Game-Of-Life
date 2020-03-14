@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 public class Board {
 	private final int sizeX;
 	private final int sizeY;
-	private int iteration = 1;
+	private GameStatus gameStatus = new GameStatus();
 
 	private List<Cell> cells = new ArrayList<>();
 
@@ -19,6 +19,7 @@ public class Board {
 		createCells();
 		addNeighbors();
 		initialiseActiveCells();
+		updateStatus();
 	}
 
 	public void makeIteration() {
@@ -33,17 +34,20 @@ public class Board {
 		}
 
 		cells.forEach(Cell::makeTransition);
-		iteration++;
+		updateStatus();
 	}
 
-	public GameStatus getStatus() {
-		return new GameStatus(
+	public GameStatus getGameStatus() {
+		return gameStatus;
+	}
+
+	private GameState generateGameState() {
+		return new GameState(
 			sizeX,
 			sizeY,
 			cells.stream()
-				.map(cell -> new GameStatus.Cell(cell.getX(), cell.getY(), cell.isActive()))
-				.collect(Collectors.toList()),
-			iteration
+				.map(cell -> new GameState.Cell(cell.getX(), cell.getY(), cell.isActive()))
+				.collect(Collectors.toList())
 		);
 	}
 
@@ -92,5 +96,9 @@ public class Board {
 
 	private Cell get(int x, int y) {
 		return cells.get(sizeX * y + x);
+	}
+
+	private void updateStatus() {
+		gameStatus.addGameState(generateGameState());
 	}
 }
