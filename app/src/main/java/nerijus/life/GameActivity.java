@@ -6,6 +6,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,6 +19,7 @@ public class GameActivity extends AppCompatActivity {
 	private Board board;
 	private Handler handler = new Handler();
 	private Runnable runnable;
+	private boolean running = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,6 @@ public class GameActivity extends AppCompatActivity {
 
 		init();
 		configureBackButton();
-
 	}
 
 	private void init() {
@@ -64,6 +65,8 @@ public class GameActivity extends AppCompatActivity {
 				handler.postDelayed(this, displayOptions.getIterationTimeInMillis());
 			}
 		};
+
+		configureStartStop();
 	}
 
 	private void iteration() {
@@ -84,10 +87,27 @@ public class GameActivity extends AppCompatActivity {
 		enterActionButton.setOnClickListener(v -> finish());
 	}
 
+	private void configureStartStop() {
+		findViewById(R.id.gameView).setOnClickListener(v -> {
+			if (running) {
+				handler.removeCallbacks(runnable);
+				Toast.makeText(getApplicationContext(), "Evolution paused. Click to continue!", Toast.LENGTH_SHORT).show();
+			} else {
+				runnable.run();
+			}
+
+			running = !running;
+		});
+	}
+
 	@Override
 	protected void onResume() {
+		if (running) {
+			runnable.run();
+		} else {
+			Toast.makeText(getApplicationContext(), "Click to start evolution!", Toast.LENGTH_SHORT).show();
+		}
 		super.onResume();
-		runnable.run();
 	}
 
 	@Override
