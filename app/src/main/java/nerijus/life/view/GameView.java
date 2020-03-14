@@ -14,6 +14,7 @@ import nerijus.life.domain.GameStatus;
 
 public class GameView extends View {
 	private GameStatus gameStatus;
+	private DisplayOptions displayOptions;
 
 	public GameView(Context context) {
 		super(context);
@@ -47,26 +48,28 @@ public class GameView extends View {
 		this.gameStatus = gameStatus;
 	}
 
+	public void setDisplayOptions(DisplayOptions displayOptions) {
+		this.displayOptions = displayOptions;
+	}
+
 	@Override
 	protected void onDraw(Canvas canvas) {
+
 		canvas.drawColor(Color.GRAY);
 
-		Paint paintGreen = new Paint();
-		paintGreen.setColor(Color.GREEN);
-
-		Paint paintRed = new Paint();
-		paintGreen.setColor(Color.RED);
+		Paint activeCellColor = new Paint();
+		activeCellColor.setColor(Color.BLACK);
 
 		Rect rect;
-		int size = 10;
+		int size = displayOptions.getCellSize();
 
 		for (GameStatus.Cell cell: gameStatus.getCells()) {
 			rect = new Rect(cell.getX() * size, cell.getY() * size, cell.getX() * size + size, cell.getY() * size + size);
 
 			if (cell.isActive()) {
-				canvas.drawRect(rect, paintGreen);
+				canvas.drawRect(rect, activeCellColor);
 			} else {
-				canvas.drawRect(rect, paintRed);
+				//canvas.drawRect(rect, paintRed);
 			}
 		}
 	}

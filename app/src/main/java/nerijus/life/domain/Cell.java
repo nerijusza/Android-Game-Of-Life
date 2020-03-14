@@ -12,6 +12,7 @@ class Cell {
 	private final int y;
 
 	private boolean status = false;
+	private boolean nextStatus = false;
 
 	private Set<Cell> neighbors = new HashSet<>();
 
@@ -50,6 +51,18 @@ class Cell {
 
 	public int getY() {
 		return y;
+	}
+
+	public void setNextStatus(boolean nextStatus) {
+		this.nextStatus = nextStatus;
+	}
+
+	public void makeTransition() {
+		status = nextStatus;
+	}
+
+	public long activeNeighbors() {
+		return neighbors.stream().filter(Cell::isActive).count();
 	}
 
 	private Set<Cell> getActiveNeighbors() {

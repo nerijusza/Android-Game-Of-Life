@@ -20,8 +20,18 @@ public class Board {
 		initialiseActiveCells();
 	}
 
-	public double getFillPercentage() {
-		return cells.stream().filter(Cell::isActive).count() / ((double) sizeX * sizeY) * 100;
+	public void makeIteration() {
+		for (Cell cell: cells) {
+			long neighbours = cell.activeNeighbors();
+
+			if (cell.isActive()) {
+				cell.setNextStatus(neighbours == 2 || neighbours == 3);
+			} else {
+				cell.setNextStatus(neighbours == 3);
+			}
+		}
+
+		cells.forEach(Cell::makeTransition);
 	}
 
 	public GameStatus getStatus() {

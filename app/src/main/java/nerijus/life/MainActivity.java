@@ -14,15 +14,6 @@ public class MainActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
-		DisplayMetrics displayMetrics = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-		int height = displayMetrics.heightPixels;
-		int width = displayMetrics.widthPixels;
-
-		System.out.println("1>>> " + height);
-		System.out.println("1>>> " + width);
-
 		configureGoToGameButton();
 	}
 
