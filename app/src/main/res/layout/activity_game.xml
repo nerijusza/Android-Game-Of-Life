@@ -10,6 +10,7 @@
         android:id="@+id/topArea"
         android:layout_width="match_parent"
         android:layout_height="100dp"
+        android:background="#C8E6C9"
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
