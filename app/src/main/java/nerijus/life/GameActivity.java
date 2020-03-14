@@ -60,9 +60,8 @@ public class GameActivity extends AppCompatActivity {
 		runnable = new Runnable() {
 			@Override
 			public void run() {
-				System.out.println(">>>>> 555");
 				iteration();
-				handler.postDelayed(this, displayOptions.getSpeedInMillis());
+				handler.postDelayed(this, displayOptions.getIterationTimeInMillis());
 			}
 		};
 	}

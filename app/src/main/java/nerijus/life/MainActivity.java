@@ -3,11 +3,8 @@ package nerijus.life;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Spinner;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		configureGoToGameButton();
-		configureCellSizeSpinner();
+		configureCellSizeChanges();
 	}
 
 	private void configureGoToGameButton() {
@@ -35,25 +32,38 @@ public class MainActivity extends AppCompatActivity {
 		});
 	}
 
-	private void configureCellSizeSpinner() {
-		Spinner spinner = findViewById(R.id.cellSizeSpinner);
-		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-			R.array.cell_size, android.R.layout.simple_spinner_item);
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		spinner.setAdapter(adapter);
+	private void configureCellSizeChanges() {
+		updateCellSizeLabel();
+		updateIterationTimeLabel();
 
-		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				Toast.makeText(getApplicationContext(), String.valueOf(parent.getItemAtPosition(position)), Toast.LENGTH_SHORT).show();
-
-				displayOptions.setCellSize(Integer.parseInt(String.valueOf(parent.getItemAtPosition(position))));
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-
-			}
+		findViewById(R.id.cellSizeDecrease).setOnClickListener(v -> {
+			displayOptions.decreaseCellSize();
+			updateCellSizeLabel();
 		});
+
+		findViewById(R.id.cellSizeIncrease).setOnClickListener(v -> {
+			displayOptions.increaseCellSize();
+			updateCellSizeLabel();
+		});
+
+		findViewById(R.id.iterationTimeDecrease).setOnClickListener(v -> {
+			displayOptions.decreaseIterationTime();
+			updateIterationTimeLabel();
+		});
+
+		findViewById(R.id.iterationTimeIncrease).setOnClickListener(v -> {
+			displayOptions.increaseIterationTime();
+			updateIterationTimeLabel();
+		});
+	}
+
+	private void updateCellSizeLabel() {
+		TextView text = findViewById(R.id.cellSizeLabel);
+		text.setText(String.valueOf(displayOptions.getCellSize()));
+	}
+
+	private void updateIterationTimeLabel() {
+		TextView text = findViewById(R.id.iterationTimeLabel);
+		text.setText(String.valueOf(displayOptions.getIterationTimeInMillis()));
 	}
 }

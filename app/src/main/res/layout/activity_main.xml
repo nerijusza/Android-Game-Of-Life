@@ -6,6 +6,78 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/alfa_slab_one"
+        android:text="px"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/cellSizeLabel"
+        app:layout_constraintTop_toBottomOf="@+id/goToGameButton" />
+
+    <TextView
+        android:id="@+id/iterationTimeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/alfa_slab_one"
+        android:text="66"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/iterationTimeIncrease"
+        app:layout_constraintTop_toBottomOf="@+id/cellSizeDecrease" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/alfa_slab_one"
+        android:text="ms"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/iterationTimeLabel"
+        app:layout_constraintTop_toBottomOf="@+id/cellSizeDecrease" />
+
+    <ImageView
+        android:id="@+id/iterationTimeIncrease"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toEndOf="@+id/iterationTimeDecrease"
+        app:layout_constraintTop_toBottomOf="@+id/cellSizeIncrease"
+        app:srcCompat="@drawable/iconfinder_arrow_circle_right_1608520" />
+
+    <ImageView
+        android:id="@+id/iterationTimeDecrease"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cellSizeDecrease"
+        app:srcCompat="@drawable/iconfinder_arrow_circle_left_1608515" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/alfa_slab_one"
+        android:text="Iteration"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/iterationTimeDecrease"
+        app:layout_constraintTop_toBottomOf="@+id/cellSizeDecrease" />
+
+    <TextView
+        android:id="@+id/cellSizeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/alfa_slab_one"
+        android:text="66"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/cellSizeIncrease"
+        app:layout_constraintTop_toBottomOf="@+id/goToGameButton" />
+
     <Button
         android:id="@+id/goToGameButton"
         android:layout_width="wrap_content"
@@ -16,25 +88,36 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Spinner
-        android:id="@+id/cellSizeSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/goToGameButton" />
-
     <TextView
-        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="4dp"
         android:fontFamily="@font/alfa_slab_one"
         android:text="Cell size"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/cellSizeDecrease"
         app:layout_constraintTop_toBottomOf="@+id/goToGameButton" />
+
+    <ImageView
+        android:id="@+id/cellSizeDecrease"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/goToGameButton"
+        app:srcCompat="@drawable/iconfinder_arrow_circle_left_1608515" />
+
+    <ImageView
+        android:id="@+id/cellSizeIncrease"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toEndOf="@+id/cellSizeDecrease"
+        app:layout_constraintTop_toBottomOf="@+id/goToGameButton"
+        app:srcCompat="@drawable/iconfinder_arrow_circle_right_1608520" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

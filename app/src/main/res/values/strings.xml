@@ -1,17 +1,3 @@
 <resources>
     <string name="app_name">Game Of Life</string>
-    <string-array name="cell_size">
-        <item>5</item>
-        <item>10</item>
-        <item>20</item>
-        <item>30</item>
-        <item>40</item>
-        <item>50</item>
-        <item>75</item>
-        <item>100</item>
-        <item>125</item>
-        <item>150</item>
-        <item>200</item>
-        <item>300</item>
-    </string-array>
 </resources>
