@@ -5,10 +5,12 @@ import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import nerijus.life.domain.Board;
+import nerijus.life.domain.GameStatus;
 import nerijus.life.view.DisplayOptions;
 import nerijus.life.view.GameView;
 
@@ -62,9 +64,13 @@ public class GameActivity extends AppCompatActivity {
 		GameView gameView = findViewById(R.id.gameView);
 
 		board.makeIteration();
+		GameStatus gameStatus = board.getStatus();
+
+		TextView textView = findViewById(R.id.iterationText);
+		textView.setText(String.valueOf(gameStatus.getIteration()));
 
 		gameView.invalidate();
-		gameView.setGameStatus(board.getStatus());
+		gameView.setGameStatus(gameStatus);
 	}
 
 	@Override

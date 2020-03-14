@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 public class Board {
 	private final int sizeX;
 	private final int sizeY;
+	private int iteration = 1;
 
 	private List<Cell> cells = new ArrayList<>();
 
@@ -32,6 +33,7 @@ public class Board {
 		}
 
 		cells.forEach(Cell::makeTransition);
+		iteration++;
 	}
 
 	public GameStatus getStatus() {
@@ -40,7 +42,8 @@ public class Board {
 			sizeY,
 			cells.stream()
 				.map(cell -> new GameStatus.Cell(cell.getX(), cell.getY(), cell.isActive()))
-				.collect(Collectors.toList())
+				.collect(Collectors.toList()),
+			iteration
 		);
 	}
 

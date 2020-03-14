@@ -9,6 +9,7 @@ public class GameStatus {
 	int sizeX;
 	int sizeY;
 	List<Cell> cells;
+	int iteration;
 
 	@Value
 	public static class Cell {
