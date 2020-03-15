@@ -72,8 +72,14 @@ public class GameActivity extends AppCompatActivity {
 			}
 		};
 
-		configureStartStop();
 		configureRestartButton();
+
+		if (displayOptions.isManualIteration()) {
+			hideIterationSpeedControls();
+			configureManualStep();
+		} else {
+			configureStartStop();
+		}
 	}
 
 	private void iteration() {
@@ -117,7 +123,7 @@ public class GameActivity extends AppCompatActivity {
 		findViewById(R.id.gameView).setOnClickListener(v -> {
 			if (running) {
 				handler.removeCallbacks(runnable);
-				Toast.makeText(getApplicationContext(), "Evolution paused. Click to continue!", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), "Evolution paused. Touch to continue!", Toast.LENGTH_SHORT).show();
 			} else {
 				runnable.run();
 			}
@@ -126,13 +132,27 @@ public class GameActivity extends AppCompatActivity {
 		});
 	}
 
+	private void configureManualStep() {
+		findViewById(R.id.gameView).setOnClickListener(v -> iteration());
+		Toast.makeText(getApplicationContext(), "Touch for new evolution step!", Toast.LENGTH_LONG).show();
+	}
+
+	private void hideIterationSpeedControls() {
+		findViewById(R.id.IterationSpeedTitle).setVisibility(View.INVISIBLE);
+		findViewById(R.id.iterationSpeedDecrease).setVisibility(View.INVISIBLE);
+		findViewById(R.id.iterationSpeedIncrease).setVisibility(View.INVISIBLE);
+		findViewById(R.id.iterationSpeedLabel).setVisibility(View.INVISIBLE);
+		findViewById(R.id.iterationSpeedMs).setVisibility(View.INVISIBLE);
+	}
+
 	@Override
 	protected void onResume() {
 		updateIterationTimeLabel();
 		if (running) {
 			runnable.run();
 		} else {
-			Toast.makeText(getApplicationContext(), "Click to start evolution!", Toast.LENGTH_SHORT).show();
+			if (!displayOptions.isManualIteration())
+				Toast.makeText(getApplicationContext(), "Touch to start evolution!", Toast.LENGTH_SHORT).show();
 		}
 		super.onResume();
 	}
@@ -144,7 +164,7 @@ public class GameActivity extends AppCompatActivity {
 	}
 
 	private void updateIterationTimeLabel() {
-		TextView text = findViewById(R.id.iterationTimeLabel);
+		TextView text = findViewById(R.id.iterationSpeedLabel);
 		text.setText(String.valueOf(displayOptions.getIterationTimeInMillis()));
 	}
 }

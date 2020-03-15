@@ -17,7 +17,7 @@
         app:layout_constraintTop_toBottomOf="@+id/goToGameButton" />
 
     <TextView
-        android:id="@+id/iterationTimeLabel"
+        android:id="@+id/iterationSpeedLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -34,7 +34,7 @@
         android:fontFamily="@font/alfa_slab_one"
         android:text="ms"
         android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/iterationTimeLabel"
+        app:layout_constraintStart_toEndOf="@+id/iterationSpeedLabel"
         app:layout_constraintTop_toBottomOf="@+id/cellSizeDecrease" />
 
     <ImageView
@@ -144,5 +144,18 @@
         android:text="For more info check here https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+    <CheckBox
+        android:id="@+id/manualIterationCheckbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:fontFamily="@font/alfa_slab_one"
+        android:text="Manual Iteration"
+        android:textColor="#9FA2A4"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iterationTimeDecrease" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
