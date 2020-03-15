@@ -26,17 +26,18 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/iterationSpeedMs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/alfa_slab_one"
             android:text="ms"
             android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/iterationTimeLabel"
+            app:layout_constraintStart_toEndOf="@+id/iterationSpeedLabel"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
         <TextView
-            android:id="@+id/iterationTimeLabel"
+            android:id="@+id/iterationSpeedLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -47,7 +48,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/IterationSpeedTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -99,7 +100,7 @@
             android:layout_height="25dp"
             android:layout_marginStart="2dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintStart_toEndOf="@+id/textView5"
+            app:layout_constraintStart_toEndOf="@+id/IterationSpeedTitle"
             app:layout_constraintTop_toBottomOf="@+id/textView3"
             app:srcCompat="@drawable/iconfinder_arrow_circle_left_1608515" />
 

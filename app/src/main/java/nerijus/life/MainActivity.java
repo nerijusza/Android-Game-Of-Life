@@ -2,8 +2,8 @@ package nerijus.life;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,16 +20,14 @@ public class MainActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_main);
 		configureGoToGameButton();
 		configureCellSizeChanges();
+		configureManualIterationCheckbox();
 	}
 
 	private void configureGoToGameButton() {
 		Button enterActionButton = findViewById(R.id.goToGameButton);
-		enterActionButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				startActivity(new Intent(MainActivity.this, GameActivity.class));
-			}
-		});
+		enterActionButton.setOnClickListener(
+			v -> startActivity(new Intent(MainActivity.this, GameActivity.class))
+		);
 	}
 
 	@Override
@@ -38,6 +36,13 @@ public class MainActivity extends AppCompatActivity {
 		updateIterationTimeLabel();
 
 		super.onStart();
+	}
+
+	private void configureManualIterationCheckbox() {
+		CheckBox checkBox = findViewById(R.id.manualIterationCheckbox);
+		checkBox.setOnCheckedChangeListener(
+			(buttonView, isChecked) -> displayOptions.setManualIteration(isChecked)
+		);
 	}
 
 	private void configureCellSizeChanges() {
@@ -68,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	private void updateIterationTimeLabel() {
-		TextView text = findViewById(R.id.iterationTimeLabel);
+		TextView text = findViewById(R.id.iterationSpeedLabel);
 		text.setText(String.valueOf(displayOptions.getIterationTimeInMillis()));
 	}
 }
